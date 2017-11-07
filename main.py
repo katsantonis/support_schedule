@@ -5,6 +5,8 @@ import Queue
 import argparse
 
 def printAvs(availabilities):
+
+
 	for av in availabilities:
 		stri = ""
 		for usr in av:
@@ -12,6 +14,8 @@ def printAvs(availabilities):
 		print "[",stri,"]"
 
 def isSolution(prog):
+
+
     print("ENTERING IS SOLUTION")
     for v in prog:
         if v == None:
@@ -22,6 +26,8 @@ def isSolution(prog):
         # if a vardia (not vardia1) is None False
 
 def dfs(q):
+
+
     solutionFound = False
     while not q.empty() :
         root = q.get()
