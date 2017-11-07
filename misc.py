@@ -8,8 +8,6 @@ from config import days2Nums
 in_file = "input_test"
 
 def readInput(filename):
-
-
 	availabilities = []
 	for i in range(17):
 		availabilities.append( [] )	
@@ -41,30 +39,6 @@ def readInput(filename):
 	return availabilities
 
 
-def avBucketCreator(availabilities):
-
-
-	buckets = {}
-	for av in availabilities:
-		day = av[0]
-		if day in weekend:
-			if day in buckets:
-				buckets[day] += 1
-			else:
-				buckets[day] = 1
-
-		elif day in days:
-			vardia = av[1]
-			key = day + vardia
-			if key in buckets:
-				buckets[key] += 1
-			else:
-				buckets[key] = 1
-		else:
-			print "Error"
-			sys.exit(2)
-
-	return buckets.items()
 
 
 		
