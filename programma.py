@@ -4,8 +4,6 @@ import sys
 from config import days,weekend,days2Nums,users
 
 def slotToDayVardia(slot):
-
-
 	day = ""
 	vardia = -1
 	if slot == 16:
@@ -20,8 +18,6 @@ def slotToDayVardia(slot):
 	return(day,vardia)
 
 def worksAtThatDay(usr_name,prog,day):
-
-
 	if day == "Saturday":
 		return prog[15] == usr_name
 	elif day =="Sunday":
@@ -33,60 +29,43 @@ def worksAtThatDay(usr_name,prog,day):
 				return True
 		return False
 
+
 class User:
 	
 	def __init__(self,name,av_hours = 20):
-
-
 		self.name     = name
 		self.avHours = av_hours
 	
 	def printUser(self):
-
-
 		print "Name: "    ,self.name
 		print "Av.hours: ",self.av_hours
 	
 	def getName(self):
-
-
 		return self.name
 	
 	def getAvHours(self):
-
-
 		return self.avHours
 
 	def setAvHours(self,avHours):
-
-
 		self.avHours = avHours
 	
 	def addHoursOfVardia(self,vardia):
-
-
 		if vardia != 1:
 			self.avHours += 8
 		else:
 			self.avHours +=4
 
 	def removeHoursOfVardia(self,vardia):
-
-
 		if vardia != 1:
 			self.avHours -= 8
 		else:
 			self.avHours -= 4
 
 	def getCopy(self):
-
-
 		c = User(self.getName(),av_hours = self.getAvHours())
 		return c
 
 	def canWorkVardia(self,vardia):
-
-
 		print("NAME: ",self.getName(),"has av hours: ",self.getAvHours(),"checking vardia: ",vardia,type(vardia))
 		if vardia == 1 and self.getAvHours() >= 4 :
 			return True
@@ -99,8 +78,6 @@ class User:
 class Programma:
 	
 	def __init__(self):
-
-
             self.usersDict = {"hadem":User("hadem",24),"mikem":User("mikem"),"konnos":User("konnos"),"jstam":User("jstam"),"canagnostou":User("canagnostou"),"sdelis":User("sdelis",24),"orespan":User("orespan",24),"nobody":User("nobody",16)}
 
             self.prog = []
