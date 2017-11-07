@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from misc import readInput,avBucketCreator
+from misc import readInput
 from programma import User,Programma
 import Queue
 import argparse
