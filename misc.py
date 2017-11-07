@@ -7,7 +7,7 @@ from config import days2Nums
 
 in_file = "input_test"
 
-def readInput(filename):
+def read_input(filename):
     availabilities = []
     for i in range(17):
         availabilities.append( [] )	
