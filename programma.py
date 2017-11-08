@@ -74,6 +74,20 @@ class User:
 	    return False
 	else:
 	    return True
+
+    def works_at_that_day(prog,day):
+        if day == "Saturday":
+            return prog[15] == self.get_name()
+        elif day =="Sunday":
+            return prog[16] == self.get_name()
+        else:
+            dayNum = days2Nums[day]
+            for i in range(3):
+                if prog[3*dayNum+i] == self.get_name():
+	            return True
+	    return False
+
+
 	
 
 class Programma:

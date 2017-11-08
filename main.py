@@ -21,7 +21,7 @@ def is_solution(prog):
     return True;
      # if a vardia (not vardia1) is None False
 
-def dfs(q):
+def dfs(q,availabilities):
     solution_found = False
     while not q.empty() :
         root = q.get()
@@ -44,34 +44,35 @@ def dfs(q):
 
     return solution_found
 
-
-ap = argparse.ArgumentParser()
-ap.add_argument("-i","--input",required = True)
-
-
-args = vars(ap.parse_args())
-input_path = args["input"]
-
-availabilities = read_input(input_path)
-print_avs(availabilities)
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-i","--input",required = True)
 
 
-q = Queue.LifoQueue()
-root =  Programma()
-root.print_prog()
-q.put(root)
-solution_found = dfs(q)
+    args = vars(ap.parse_args())
+    input_path = args["input"]
 
-if not(solution_found):
-    #ksekina apo paraskeyi na min vazeis vardia 2
-    backup = list(availabilities)
-    availabilities[13] = ["nobody"]
+    availabilities = read_input(input_path)
+    print_avs(availabilities)
+
+
     q = Queue.LifoQueue()
     root =  Programma()
     root.print_prog()
     q.put(root)
-    solution_found = dfs(q)
+    solution_found = dfs(q,availabilities)
 
+    if not(solution_found):
+        #ksekina apo paraskeyi na min vazeis vardia 2
+        backup = list(availabilities)
+        availabilities[13] = ["nobody"]
+        q = Queue.LifoQueue()
+        root =  Programma()
+        root.print_prog()
+        q.put(root)
+        solution_found = dfs(q,availabilities)
 
+if __name__ == "__main__":
+    main()
 
 
