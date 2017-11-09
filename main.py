@@ -23,6 +23,7 @@ def is_solution(prog):
 
 def dfs(q,availabilities):
     solution_found = False
+    solutions = []
     while not q.empty() :
         root = q.get()
         print "Just Poped: "
@@ -30,8 +31,9 @@ def dfs(q,availabilities):
         for usr_name,usr in root.get_users_dict().iteritems():
             print (usr_name," has hours ",usr.get_av_hours())
         if is_solution(root.get_prog()):
-            solution_found = True
-            break
+            solutions.append((root,root.get_score()))
+            if len(solutions) > 100:
+                break
         print "             !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
         print
         children =  root.get_children(availabilities)
@@ -42,7 +44,7 @@ def dfs(q,availabilities):
             print_avs(availabilities)
             q.put(c)
 
-    return solution_found
+    return solutions
 
 def main():
     ap = argparse.ArgumentParser()
@@ -60,19 +62,35 @@ def main():
     root =  Programma()
     root.print_prog()
     q.put(root)
-    solution_found = dfs(q,availabilities)
+    solutions = dfs(q,availabilities)
+    
+    #sort by score
+    solutions = sorted(solutions, key = lambda x: x[1])
 
-    if not(solution_found):
-        #ksekina apo paraskeyi na min vazeis vardia 2
-        backup = list(availabilities)
-        availabilities[13] = ["nobody"]
-        q = Queue.LifoQueue()
-        root =  Programma()
-        root.print_prog()
-        q.put(root)
-        solution_found = dfs(q,availabilities)
+    for sol in solutions:
+        print("++++++++++++++++++++++++++")
+        print(sol[0].print_prog())
+        print(sol[1])
+        print("++++++++++++++++++++++++++")
+
+    
+    #if not(solution_found):
+    #    #ksekina apo paraskeyi na min vazeis vardia 2
+    #   backup = list(availabilities)
+    #    availabilities[13] = ["nobody"]
+    #    q = Queue.LifoQueue()
+    #    root =  Programma()
+    #    root.print_prog()
+    #    q.put(root)
+    #    solution_found = dfs(q,availabilities)
 
 if __name__ == "__main__":
-    main()
+     main()
+    #p = Programma()
+    #p.prog = ["konnos","","hadem","hadem","konnos","orespan","hadem","","sdelis","sdelis","","orespan","sdelis","","konnos","konnos",""]
+    #p.print_prog()
+    #print(p.count_3_1())
+    #print(p.count_double_vardia_1())
+    #print(p.get_score())
 
 

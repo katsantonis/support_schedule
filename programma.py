@@ -2,33 +2,7 @@
 import hashlib
 import sys
 from config import days,weekend,days2Nums,users
-
-def slot_to_day_vardia(slot):
-    day = ""
-    vardia = -1
-    if slot == 16:
-        day = "Sunday"
-        vardia = 2
-    elif slot == 15:
-        day = "Saturday"
-	vardia = 2
-    else:
-	vardia = slot % 3 +1
-	day = days[slot/3]
-    return(day,vardia)
-
-def works_at_that_day(usr_name,prog,day):
-    if day == "Saturday":
-        return prog[15] == usr_name
-    elif day =="Sunday":
-        return prog[16] == usr_name
-    else:
-        dayNum = days2Nums[day]
-        for i in range(3):
-	    if prog[3*dayNum+i] == usr_name:
-	        return True
-	return False
-
+from misc import slot_to_day_vardia
 
 class User:
 	
@@ -75,7 +49,7 @@ class User:
 	else:
 	    return True
 
-    def works_at_that_day(prog,day):
+    def works_that_day(self,prog,day):
         if day == "Saturday":
             return prog[15] == self.get_name()
         elif day =="Sunday":
@@ -174,7 +148,7 @@ class Programma:
 		
 				
     def get_children(self,availabilities):
-	children = []
+	children_progs = []
 	for slot in range(17):
 	    print(self.prog[slot]==None)
 	    if self.prog[slot] == None:
@@ -186,11 +160,51 @@ class Programma:
 	day,vardia = slot_to_day_vardia(slot)
 	for usr_name in avs:
 	    child = self.get_copy();
-	    if child.get_users_dict()[usr_name].can_work_vardia(vardia) and not works_at_that_day(usr_name,child.get_prog(),day) :
+            user = child.get_users_dict()[usr_name]
+	    if user.can_work_vardia(vardia) and not user.works_that_day(child.get_prog(),day):
 	        child.set_vardia(day,vardia,usr_name)
-		children.append(child)
+		children_progs.append(child)
 
-	return children
+	return children_progs
+    
+    def count_3_1(self):
+        counter_3_1 = 0
+        prog = self.get_prog()
+        #for every vardia 3
+        for v in range(2,len(prog),3):
+            #if vardia_3  == next_day_vardia_1
+            if prog[v] == prog[v+1]:
+                counter_3_1 += 1
+        return counter_3_1
+
+    def count_double_vardia_1(self):
+        counter = 0
+        prog  = self.get_prog()
+        for name,user in self.get_users_dict().items():
+            user_name = user.get_name()
+            users_vardia_1_counter = 0
+            for v1 in range(0,13,3):
+                if prog[v1]==user_name:
+                    users_vardia_1_counter+=1
+
+            if users_vardia_1_counter >= 2:
+                counter += users_vardia_1_counter-1
+
+        return counter
+
+    def same_user_weekend(self):
+        prog = self.get_prog()
+        if prog[15] == prog[16]:
+            return 1
+        else:
+            return 0
+            
+
+    def get_score(self):
+        negative_points = (0.1 + self.count_3_1() + self.count_double_vardia_1() + self.same_user_weekend())
+        score = 1.0/negative_points
+        return score
+
 		
 
 

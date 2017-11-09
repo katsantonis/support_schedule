@@ -5,7 +5,21 @@ from config import users
 from config import vardies
 from config import days2Nums
 
-in_file = "input_test"
+def slot_to_day_vardia(slot):
+    day = ""
+    vardia = -1
+    if slot == 16: 
+        day = "Sunday"
+        vardia = 2 
+    elif slot == 15: 
+        day = "Saturday"
+        vardia = 2 
+    else:
+        vardia = slot % 3 +1
+        day = days[slot/3]
+    return(day,vardia)
+
+
 
 def read_input(filename):
     availabilities = []
@@ -35,7 +49,6 @@ def read_input(filename):
                         availabilities[3*days2Nums[current_day]+vardia -1 ].append( current_user )
 
         return availabilities
-
 
 
 

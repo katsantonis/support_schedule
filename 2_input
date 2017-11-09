@@ -1,41 +1,42 @@
 Monday
-canagnostou 1 2 3
 hadem 1
-konnos 1 2
+canagnostou 1 2 3
+mikem 3
+orespan 1 2
 
 
 Tuesday
-canagnostou 1
 sdelis 3
-orespan 1 2
-konnos 1 2
-
-Wednesday
-canagnostou 1
-orespan 1 2
-mikem 3
-sdelis 1 2
-konnos 1 2
-hadem 1
-
-Thursday
-canagnostou 1
 konnos 1 2
 mikem 1
+orespan 1
+canagnostou 1
+
+Wednesday
+sdelis 1
+orespan 1 2
+konnos 1 2
+mikem 1 2 3
+
+Thursday
+sdelis 1
 hadem 1 2 3
+orespan 1 2
+konnos 1 2
+mikem 1 2 3
 
 Friday
-hadem 1 3
-konnos 1 
-orespan 2
-canagnostou 1 3
+sdelis 1 2
+hadem 1 2 3
+canagnostou 1 2 3
+orespan 1
+konnos 1 2
+
 
 Saturday
-sdelis
-konnos
-mikem
 canagnostou
+hadem
 
 Sunday
-mikem
-konnos
+canagnostou
+hadem
