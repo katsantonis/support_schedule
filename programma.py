@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import hashlib
 import sys
 from config import days,weekend,days2Nums,users
@@ -7,47 +7,47 @@ from misc import slot_to_day_vardia
 class User:
 	
     def __init__(self,name,av_hours = 20):
-	self.name     = name
-	self.av_hours = av_hours
+        self.name     = name
+        self.av_hours = av_hours
 	
     def print_user(self):
-	print "Name: "    ,self.name
-	print "Av.hours: ",self.av_hours
+        print("Name: {}".format(self.name))
+        print("Av.hours: {}".format(self.av_hours))
 	
     def get_name(self):
-	return self.name
+        return self.name
 	
     def get_av_hours(self):
-	return self.av_hours
+        return self.av_hours
 
     def set_av_hours(self,avHours):
-	self.avHours = av_hours
+        self.avHours = av_hours
 	
     def add_hours_of_vardia(self,vardia):
-	if vardia != 1:
-	    self.av_hours += 8
-	else:
-	    self.av_hours +=4
+        if vardia != 1:
+            self.av_hours += 8
+        else:
+            self.av_hours +=4
 
     def remove_hours_of_vardia(self,vardia):
         if vardia != 1:
-	    self.av_hours -= 8
-	else:
-	    self.av_hours -= 4
+            self.av_hours -= 8
+        else:
+            self.av_hours -= 4
 
     def get_copy(self):
-	c = User(self.get_name(),av_hours = self.get_av_hours())
-	return c
+        c = User(self.get_name(),av_hours = self.get_av_hours())
+        return c
 
 
     def can_work_vardia(self,vardia):
-	print("NAME: ",self.get_name(),"has av hours: ",self.get_av_hours(),"checking vardia: ",vardia,type(vardia))
-	if vardia == 1 and self.get_av_hours() >= 4 :
-	    return True
-	elif self.get_av_hours() < 8 :
-	    return False
-	else:
-	    return True
+ #       print("NAME: ",self.get_name(),"has av hours: ",self.get_av_hours(),"checking vardia: ",vardia,type(vardia))
+        if vardia == 1 and self.get_av_hours() >= 4 :
+            return True
+        elif self.get_av_hours() < 8 :
+            return False
+        else:
+            return True
 
     def works_that_day(self,prog,day):
         if day == "Saturday":
@@ -58,8 +58,8 @@ class User:
             dayNum = days2Nums[day]
             for i in range(3):
                 if prog[3*dayNum+i] == self.get_name():
-	            return True
-	    return False
+                    return True
+            return False
 
 
 	
@@ -67,105 +67,108 @@ class User:
 class Programma:
 	
     def __init__(self):
-        self.users_dict = {"hadem":User("hadem",24),"mikem":User("mikem"),"konnos":User("konnos"),"jstam":User("jstam"),"canagnostou":User("canagnostou"),"sdelis":User("sdelis",24),"orespan":User("orespan",24),"nobody":User("nobody",16)}
+        self.users_dict = {}
+        for u in users:
+            self.users_dict[u] = User(u,24) 
 
         self.prog = []
-	for i in range(17):
-	    self.prog.append(None)
+        for i in range(17):
+            self.prog.append(None)
 	
     def my_hash(self):
         for x in prog:
-	    total += x		
-	return hashlib.md5(total.encode()).hexdigest()
+            total += x		
+        return hashlib.md5(total.encode()).hexdigest()
 
     def get_users_dict(self):
-	return self.users_dict
+        return self.users_dict
 
     def get_vadia(self,day,vardia):
-	if day not in weekend:
-	    index = 3*days2Nums[day] + vardia -1
-	if day == "Saturday":
-	    index = 15
-	if day== "Sunday":
-	    index = 16
+        if day not in weekend:
+            index = 3*days2Nums[day] + vardia -1
+        if day == "Saturday":
+            index = 15
+        if day== "Sunday":
+            index = 16
 
-	return prog[index]
+        return prog[index]
 	
     def set_vardia(self,day,vardia,usr_name):
-	if day not in weekend:
-	    index = 3*days2Nums[day] + vardia -1
-	    print "index = ",index
-	elif day == "Saturday":
-	    index = 15
-	elif day == "Sunday":
-	    index = 16
+        if day not in weekend:
+            index = 3*days2Nums[day] + vardia -1
+        #    print("index = {}".format(index))
+        elif day == "Saturday":
+            index = 15
+        elif day == "Sunday":
+            index = 16
 
-	prev_usr_name = self.prog[index]
-	curr_usr_name = usr_name
+        prev_usr_name = self.prog[index]
+        curr_usr_name = usr_name
 
-	if prev_usr_name != None :
-	    self.getUsersDict()[prev_usr_name].add_hours_of_vardia(vardia)
+        if prev_usr_name != None and not prev_usr_name == "nobody":
+            print(type(self))
+            self.get_users_dict()[prev_usr_name].add_hours_of_vardia(vardia)
 			
-	self.prog[index] = curr_usr_name
-	self.get_users_dict()[curr_usr_name].remove_hours_of_vardia(vardia)
+        self.prog[index] = curr_usr_name
+        self.get_users_dict()[curr_usr_name].remove_hours_of_vardia(vardia)
 	
     def get_prog(self):
-	return self.prog
+        return self.prog
 	
     def set_prog(self,prog):
-	for i in range(len(prog)):
-	    self.prog[i] = prog[i]
+        for i in range(len(prog)):
+            self.prog[i] = prog[i]
 		
 	
 
     def print_prog(self):
-	for day in days:
-	    print "==",day,"=="
-	    if day == "Saturday":
-	        print self.prog[15]
-	    elif day == "Sunday":
-		print self.prog[16]
-	    else:
-	        for i in range(3):
-		    print i+1,".",self.prog[3*days2Nums[day]+ i]
+        for day in days:
+            print("==",day,"==")
+            if day == "Saturday":
+                print(self.prog[15])
+            elif day == "Sunday":
+                print(self.prog[16])
+            else:
+                for i in range(3):
+                    print(i+1,".",self.prog[3*days2Nums[day]+ i])
 
     def copy_of_user_dict(self):
         new_user_dict = {}
-	for u in users:
-	    new_user_dict[u] = self.users_dict[u].get_copy()
+        for u in users:
+            new_user_dict[u] = self.users_dict[u].get_copy()
 	
-	return new_user_dict
+        return new_user_dict
 
     def set_new_users_dict(self,ud):
-	self.users_dict = ud
+        self.users_dict = ud
 
     def get_copy(self):
-	c = Programma()
-	c.set_prog( self.get_prog() )
-	c.set_new_users_dict(self.copy_of_user_dict())
-	return c
+        c = Programma()
+        c.set_prog( self.get_prog() )
+        c.set_new_users_dict(self.copy_of_user_dict())
+        return c
 
 		
 				
     def get_children(self,availabilities):
-	children_progs = []
-	for slot in range(17):
-	    print(self.prog[slot]==None)
-	    if self.prog[slot] == None:
-	        break
+        children_progs = []
+        for slot in range(17):
+        #    print(self.prog[slot]==None)
+            if self.prog[slot] == None:
+                break
 		
-	print("checking slot: ",slot)
-	avs = availabilities[slot]
-	print("avs of this slot: ",avs)
-	day,vardia = slot_to_day_vardia(slot)
-	for usr_name in avs:
-	    child = self.get_copy();
+      #  print("checking slot: ",slot)
+        avs = availabilities[slot]
+      #  print("avs of this slot: ",avs)
+        day,vardia = slot_to_day_vardia(slot)
+        for usr_name in avs:
+            child = self.get_copy();
             user = child.get_users_dict()[usr_name]
-	    if user.can_work_vardia(vardia) and not user.works_that_day(child.get_prog(),day):
-	        child.set_vardia(day,vardia,usr_name)
-		children_progs.append(child)
+            if user.can_work_vardia(vardia) and not user.works_that_day(child.get_prog(),day):
+                child.set_vardia(day,vardia,usr_name)
+                children_progs.append(child)
 
-	return children_progs
+        return children_progs
     
     def count_3_1(self):
         counter_3_1 = 0
@@ -192,16 +195,25 @@ class Programma:
 
         return counter
 
+    def count_nobody(self):
+        nobody = 0;
+        prog = self.get_prog()
+        for v in prog:
+            if v == "nobody":
+                nobody += 7
+
+        return nobody
+
     def same_user_weekend(self):
         prog = self.get_prog()
         if prog[15] == prog[16]:
-            return 1
+            return 2
         else:
             return 0
             
 
     def get_score(self):
-        negative_points = (0.1 + self.count_3_1() + self.count_double_vardia_1() + self.same_user_weekend())
+        negative_points = (0.1 + self.count_3_1() + self.count_double_vardia_1() + self.same_user_weekend() + self.count_nobody())
         score = 1.0/negative_points
         return score
 

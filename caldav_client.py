@@ -37,9 +37,6 @@ def caldav_date_to_weekday(caldav_date):
     day   = int(caldav_date[6:8])
     return date(year,month,day).weekday()
 
-#TODO ENDTIME is also importan in case 
-#a user declares his availability with the same event 
-#that for rxample starts on Monday and Ends on Wednesday
 def parse_caldav_event(event):
     result = []
     lines = event.splitlines()
@@ -69,6 +66,8 @@ def get_next_week_dates():
 def fetch_availabilities(username,password):
     availabilities = []
     users_no_availability = []
+    day = -1
+    availability_string = ""
     for i in range(17):
         availabilities.append([])
     
@@ -77,7 +76,7 @@ def fetch_availabilities(username,password):
     next_monday,next_sunday = get_next_week_dates()
     for u in users:
         user_availability_events = []
-        use_default_events = False
+        used_default_events = False
         if u in calendar_urls:
             user_availability_calendar            = principal.calendar(client,calendar_urls[u])
             user_availability_events = user_availability_calendar.date_search(next_monday,next_sunday) 
@@ -86,11 +85,11 @@ def fetch_availabilities(username,password):
         if not user_availability_events:
             print("No calendar availabilities for user [{}]".format(u))
             user_availability_events = default_events[u]
-            use_default_events = True
+            used_default_events = True
         if not user_availability_events:
             print ("No default availabilities for user [{}]".format(u))
         for event in user_availability_events:
-            if use_default_events:
+            if used_default_events:
                 day,availability_string = event
                 data = [(day,availability_string)]
             else:
@@ -98,9 +97,10 @@ def fetch_availabilities(username,password):
                 data = parse_caldav_event(event.data)
                 print("day = {}".format(day))
                 print("availability_string = {}".format(availability_string))
-                for day,availability_string in data:
-                    availabilities = add_availability_string_to_availabilities(availability_string,day,availabilities)
-
+            for day,availability_string in data:
+                availabilities = add_availability_string_to_availabilities(availability_string,day,availabilities)
+    print("----AVAILABILITIES------")
+    print(availabilities)
     return availabilities
 
 

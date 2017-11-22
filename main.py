@@ -1,23 +1,25 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from misc import read_input
 from programma import User,Programma
-import Queue
+import queue
 import argparse
+from caldav_client import fetch_availabilities
+import getpass
 
 def print_avs(availabilities):
     for av in availabilities:
         stri = ""
-	for usr in av:
-	    stri += usr + " "
-	print "[",stri,"]"
+        for usr in av:
+            stri += usr + " "
+        print("[{}]".format(stri))
 
 def is_solution(prog):
-    print("ENTERING IS SOLUTION")
+ #   print("ENTERING IS SOLUTION")
     for v in prog:
         if v == None:
-            print("This IS NOT A SOLLUTION")
+   #         print("This IS NOT A SOLLUTION")
             return False;
-    print("THIS IS A SOLUTION")
+  #  print("THIS IS A SOLUTION")
     return True;
      # if a vardia (not vardia1) is None False
 
@@ -26,39 +28,60 @@ def dfs(q,availabilities):
     solutions = []
     while not q.empty() :
         root = q.get()
-        print "Just Poped: "
-        root.print_prog()
-        for usr_name,usr in root.get_users_dict().iteritems():
-            print (usr_name," has hours ",usr.get_av_hours())
+    #    print("Just Poped: ")
+     #   root.print_prog()
+     #   for usr_name,usr in root.get_users_dict().items():
+     #       print ("{} has hours {}".format(usr_name,usr.get_av_hours()))
         if is_solution(root.get_prog()):
             solutions.append((root,root.get_score()))
-            if len(solutions) > 100:
-                break
-        print "             !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print
+           # if len(solutions) > 20000:
+           #     break
+      #  print("             !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+     #   print()
         children =  root.get_children(availabilities)
-        print("             ++++++++PRINTING CHILDREN[",len(children),"]++++++++++++++++")
+     #   print("             ++++++++PRINTING CHILDREN[",len(children),"]++++++++++++++++")
         for c in children:
-            print("++--==PUSHING CHILD==--++")
-            c.print_prog()
-            print_avs(availabilities)
+     #       print("++--==PUSHING CHILD==--++")
+      #      c.print_prog()
+       #     print_avs(availabilities)
             q.put(c)
 
     return solutions
 
+#TODO function tha decides how many solutions to print
+def print_solutions(solutions):
+    if solutions == []:
+        print("No Solutions Found")
+    else:
+        best_score = solutions[-1][1]
+    for i in range(len(solutions)-1,0,-1):
+        if solutions[i][1] == best_score:
+            print("++++++++++++++++++++++++++")
+            print(solutions[i][0].print_prog())
+            print(solutions[i][1])
+            print("++++++++++++++++++++++++++")
+    
+
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-i","--input",required = True)
+    #ap = argparse.ArgumentParser()
+    #ap.add_argument("-i","--input",required = True)
 
 
-    args = vars(ap.parse_args())
-    input_path = args["input"]
+    #args = vars(ap.parse_args())
+    #input_path = args["input"]
 
-    availabilities = read_input(input_path)
+    #availabilities = read_input(input_path)
+    username = input("username:")
+    password = getpass.getpass()
+            
+    availabilities = fetch_availabilities(username,password)
+    if not availabilities:
+        print("Exiting ...")
+        exit()
     print_avs(availabilities)
 
 
-    q = Queue.LifoQueue()
+    q = queue.LifoQueue()
     root =  Programma()
     root.print_prog()
     q.put(root)
@@ -66,23 +89,10 @@ def main():
     
     #sort by score
     solutions = sorted(solutions, key = lambda x: x[1])
-
-    for sol in solutions:
-        print("++++++++++++++++++++++++++")
-        print(sol[0].print_prog())
-        print(sol[1])
-        print("++++++++++++++++++++++++++")
-
     
-    #if not(solution_found):
-    #    #ksekina apo paraskeyi na min vazeis vardia 2
-    #   backup = list(availabilities)
-    #    availabilities[13] = ["nobody"]
-    #    q = Queue.LifoQueue()
-    #    root =  Programma()
-    #    root.print_prog()
-    #    q.put(root)
-    #    solution_found = dfs(q,availabilities)
+    print("Print Solutions")
+    print_solutions(solutions)
+    
 
 if __name__ == "__main__":
      main()

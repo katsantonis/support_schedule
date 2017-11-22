@@ -16,7 +16,7 @@ def slot_to_day_vardia(slot):
         vardia = 2 
     else:
         vardia = slot % 3 +1
-        day = days[slot/3]
+        day = days[int(slot/3)]
     return(day,vardia)
 
 
