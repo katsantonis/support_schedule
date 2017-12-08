@@ -11,8 +11,9 @@ weekend = ["Saturday","Sunday"]
 vardies = ["1","2","3"]
 users   = ["orespan","hadem","konnos","canagnostou","sdelis","mikem","nobody"]
 num_days= 7
-owncloud_url = "https://colab.noc.grnet.gr/remote.php/dav/calendars/"
-calendar_urls ={"hadem":"https://colab.noc.grnet.gr/remote.php/dav/calendars/b38d8d60-c5c0-1036-8ecb-11b6346f5763/%ce%b4%ce%b9%ce%b1%ce%b8%ce%b5%cf%83%ce%b9%ce%bc%cf%8c%cf%84%ce%b7%cf%84%ce%b1hadem_shared_by_bbeca648-8558-1035-9abf-27b2d9334824/",
+owncloud_url    = "https://colab.noc.grnet.gr/remote.php/dav/calendars/"
+support_vardies = "https://colab.noc.grnet.gr/remote.php/dav/calendars/b38d8d60-c5c0-1036-8ecb-11b6346f5763/%ce%92%ce%ac%cf%81%ce%b4%ce%b9%ce%b5%cf%82support_shared_by_6fb185e4-c0ca-1034-9776-a916203cc14b/"
+calendar_urls   ={"hadem":"https://colab.noc.grnet.gr/remote.php/dav/calendars/b38d8d60-c5c0-1036-8ecb-11b6346f5763/%ce%b4%ce%b9%ce%b1%ce%b8%ce%b5%cf%83%ce%b9%ce%bc%cf%8c%cf%84%ce%b7%cf%84%ce%b1hadem_shared_by_bbeca648-8558-1035-9abf-27b2d9334824/",
         "orespan"     : "https://colab.noc.grnet.gr/remote.php/dav/calendars/b38d8d60-c5c0-1036-8ecb-11b6346f5763/availability_shared_by_9805809a-3873-1037-9772-cd5a8aea2f1e/",
         "mikem"       : "https://colab.noc.grnet.gr/remote.php/dav/calendars/b38d8d60-c5c0-1036-8ecb-11b6346f5763/availability_shared_by_2aebc624-35fc-1036-9f74-b9a6f4f57df3/",
         "sdelis"      : "https://colab.noc.grnet.gr/remote.php/dav/calendars/b38d8d60-c5c0-1036-8ecb-11b6346f5763/sdelis_shared_by_bbe5484e-8558-1035-9abe-27b2d9334824/",
