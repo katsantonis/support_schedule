@@ -4,12 +4,14 @@ global weekend
 global vardies
 global num_days
 global calendar_urls   
+global available_hours
 
 days    = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 days2Nums= {"Monday":0,"Tuesday":1,"Wednesday":2,"Thursday":3,"Friday":4,"Saturday":5,"Sunday":6}
 weekend = ["Saturday","Sunday"]
 vardies = ["1","2","3"]
-users   = ["orespan","hadem","konnos","canagnostou","sdelis","mikem","nobody"]
+users           = ["orespan","hadem","konnos","canagnostou","sdelis","mikem","nobody"]
+available_hours = {"orespan":24,"hadem":24,"konnos":16,"canagnostou":24,"sdelis":24,"mikem":24,"nobody":100}
 num_days= 7
 owncloud_url = "https://colab.noc.grnet.gr/remote.php/dav/calendars/"
 calendar_urls ={"hadem":"https://colab.noc.grnet.gr/remote.php/dav/calendars/b38d8d60-c5c0-1036-8ecb-11b6346f5763/%ce%b4%ce%b9%ce%b1%ce%b8%ce%b5%cf%83%ce%b9%ce%bc%cf%8c%cf%84%ce%b7%cf%84%ce%b1hadem_shared_by_bbeca648-8558-1035-9abf-27b2d9334824/",

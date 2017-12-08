@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import hashlib
 import sys
-from config import days,weekend,days2Nums,users
+from config import days,weekend,days2Nums,users,available_hours
 from misc import slot_to_day_vardia
 
 class User:
@@ -69,7 +69,7 @@ class Programma:
     def __init__(self):
         self.users_dict = {}
         for u in users:
-            self.users_dict[u] = User(u,24) 
+            self.users_dict[u] = User(u,available_hours[u]) 
 
         self.prog = []
         for i in range(17):
