@@ -1,6 +1,7 @@
 import datetime
 
-def WorkDay():
+
+class WorkDay():
     def __init__(self,day):
         self.day = day
         self.vardies = ["1":"nobody","2":"nobody","3":"nobody"]
@@ -10,7 +11,7 @@ def WorkDay():
 
 
 
-def UserTimsheet():
+class UserTimsheet():
     
     def __init__(self,name):
         self.name = name

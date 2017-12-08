@@ -63,13 +63,6 @@ def print_solutions(solutions):
     
 
 def main():
-    import os, sys 
-    parentPath = os.path.abspath("..")
-    if parentPath not in sys.path:
-        sys.path.insert(0, parentPath)
-
-
-
     username = input("username:")
     password = getpass.getpass()
             
@@ -94,12 +87,11 @@ def main():
     
 
 if __name__ == "__main__":
+    import os, sys 
+    parentPath = os.path.abspath("..")
+    if parentPath not in sys.path:
+        sys.path.insert(0, parentPath)
+
      main()
-    #p = Programma()
-    #p.prog = ["konnos","","hadem","hadem","konnos","orespan","hadem","","sdelis","sdelis","","orespan","sdelis","","konnos","konnos",""]
-    #p.print_prog()
-    #print(p.count_3_1())
-    #print(p.count_double_vardia_1())
-    #print(p.get_score())
 
 
