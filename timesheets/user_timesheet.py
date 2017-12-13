@@ -1,6 +1,21 @@
 import datetime
 
 
+class WorkDayList():
+    def __init__(self):
+        self.list = []
+    
+    def get_list(self):
+        return self.list
+    
+    def append_day(self,day):
+        self.list.append(day)    
+
+    def print_list(self):
+        for work_day in self.list:
+            work_day.print_out()
+    
+
 class WorkDay():
     def __init__(self,day):
         self.day = day
@@ -8,6 +23,11 @@ class WorkDay():
 
     def add(vardia,user):
         self.vardies[vardia] = user
+
+    def print_out(self):
+        print("==",self.day.day,"-",self.day.month,"-",self.day.year,"==")
+        for vardia,user in self.vardies.items():
+            print(vardia,". ",user)
 
 
 

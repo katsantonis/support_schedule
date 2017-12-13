@@ -5,6 +5,7 @@ import datetime
 import getpass
 from calendar import monthrange
 from config import owncloud_url,users
+from user_timesheet import WorkDayList,WorkDay,UserTimesheet
 
 def parse_summary_string(line,workday):
 words  =  line.split()
@@ -23,7 +24,7 @@ def parse_date_string(date_string):
     return datetime.date(int(year),int(month),int(day))
 
 def parse_events(events):
-    work_days = []
+    day_list = WorkDayList()
     for event in events:
         data = event.data
         lines = data.splitlines()
@@ -33,14 +34,17 @@ def parse_events(events):
             if "DTEND"   in line:
                 end_date = parse_date_string(line.split(":")[-1])        
             if "SUMMARY" in line:
-                parse_summary_string(line)
+                summary = line
 
-            for x in range(start_date.day,end_date.day):
-                offset          = x - start_date.day
-                current_date    = start_date + datetime.timedelta(days=offset)
-                current_workday =  WorkDay(current_date)
-                parse_summary_string(line,current_workday) ##STOPED HERE
-                work_days.append(current_workday)
+        for x in range(start_date.day,end_date.day):
+            offset          = x - start_date.day
+            current_date    = start_date + datetime.timedelta(days=offset)
+            current_workday =  WorkDay(current_date)
+            parse_summary_string(line,current_workday)
+            day_list.append_day(current_workday)
+        
+        day_list.print_list()
+
 
     
 
