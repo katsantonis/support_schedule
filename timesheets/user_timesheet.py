@@ -15,13 +15,16 @@ class WorkDayList():
         for work_day in self.list:
             work_day.print_out()
     
+    def sort_me(self):
+        self.list = sorted(self.list, key = lambda work_d: work_d.day.day )    
+
 
 class WorkDay():
     def __init__(self,day):
         self.day = day
-        self.vardies = ["1":"nobody","2":"nobody","3":"nobody"]
+        self.vardies = {"1":"nobody","2":"nobody","3":"nobody"}
 
-    def add(vardia,user):
+    def add(self,vardia,user):
         self.vardies[vardia] = user
 
     def print_out(self):
@@ -29,9 +32,11 @@ class WorkDay():
         for vardia,user in self.vardies.items():
             print(vardia,". ",user)
 
+   
 
 
-class UserTimsheet():
+
+class UserTimesheet():
     
     def __init__(self,name):
         self.name = name
@@ -43,12 +48,12 @@ class UserTimsheet():
     def get_timesheet(self):
         return self.timesheet()
 
-    def add(self,day,vardia)
+    def add(self,day,vardia):
         if vardia=="2" or vardia=="3":
             hours = 8
-        elif vardia=="1"
+        elif vardia=="1":
             hours = 4
-        else
+        else:
             hours = -1
 
         self.timesheet.append((day,vardia,hours))
