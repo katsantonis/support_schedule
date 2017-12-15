@@ -8,13 +8,13 @@ from config import owncloud_url,users
 from user_timesheet import WorkDayList,WorkDay,UserTimesheet
 
 def parse_summary_string(line,workday):
-words  =  line.split()
-vardies_cp = list(vardies)
-vardies_rev_iter = iter(vardies.reverse())
-for i in range(len(words),0,-1):
-    for u in users:
-        if u in words[i]:
-            workday.add(vardies_rev_iter.next(),u)    
+    words  =  line.split()
+    vardies_cp = list(vardies)
+    vardies_rev_iter = iter(vardies.reverse())
+    for i in range(len(words),0,-1):
+        for u in users:
+            if u in words[i]:
+                workday.add(vardies_rev_iter.next(),u)    
    
 
 def parse_date_string(date_string):
