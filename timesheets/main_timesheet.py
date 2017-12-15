@@ -4,7 +4,7 @@ from datetime import datetime,date,time
 import datetime
 import getpass
 from calendar import monthrange
-from user_timesheet import WorkDayList,WorkDay,UserTimesheet
+from objects_timesheet import WorkDayList,WorkDay,Timesheets,UserTimesheet
 
 def parse_summary_string(line,workday):
     words  =  line.split(" ")
@@ -50,7 +50,9 @@ def parse_events(events):
     
     day_list.sort_me()   
     day_list.print_list()
-
+    return day_list
+    
+    
 
     
 
@@ -75,8 +77,12 @@ def main():
              
 
     events = support_vardies_cal.date_search(start_day,end_day)
-    parse_events(events)
-
+    
+    day_list   = parse_events(events)
+    timesheets = Timesheets(day_list)
+    while True:
+        user = input("Type User: ")
+        timesheets.print_users_ts(user)
 
 
 if __name__ == "__main__":

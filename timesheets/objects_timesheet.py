@@ -1,5 +1,7 @@
 import datetime
-
+import sys
+sys.path.append('..')
+from config import users
 
 class WorkDayList():
     def __init__(self):
@@ -16,8 +18,7 @@ class WorkDayList():
             work_day.print_out()
     
     def sort_me(self):
-        self.list = sorted(self.list, key = lambda work_d: work_d.day.day )    
-
+        self.list = sorted(self.list, key = lambda work_d: work_d.day.day ) 
 
 class WorkDay():
     def __init__(self,day):
@@ -32,9 +33,37 @@ class WorkDay():
         for vardia,user in self.vardies.items():
             print(vardia,". ",user)
 
-   
+    def get_vardies(self):
+        return self.vardies
+
+    def get_day(self):
+        return self.day
 
 
+class Timesheets():
+    
+    def __init__(self,work_day_list):
+        self.dict = {}
+
+        for user in users:
+            self.dict[user] = UserTimesheet(user)
+
+        for w_d in work_day_list.get_list():
+            self.add_work_day(w_d)
+
+
+    def get_users(user):
+        return self.dict[user]
+    
+    def add_work_day(self,w_d):
+        vardies = w_d.get_vardies()
+        day     = w_d.get_day()
+        for vardia,user in vardies.items():
+            self.dict[user].add(day,vardia)
+
+    def print_users_ts(self,user):
+        self.dict[user].print_timesheet(user)
+    
 
 class UserTimesheet():
     
@@ -63,4 +92,14 @@ class UserTimesheet():
         for t in self.timesheet:
             total_hours += t[2]
         return total_hours
+
+    def print_timesheet(self,user):
+        print("===",user,"===")
+        for x in self.timesheet:
+            day    = x[0]
+            vardia = x[1]
+            hours  = x[2]
+            print(day.day,"/",day.month,"/",day.year," ",vardia," ",hours)
+        
+        print("total:",self.get_total_hours())
 
