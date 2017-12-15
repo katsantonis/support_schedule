@@ -42,9 +42,8 @@ def parse_events(events):
                 summary = line
         print("start: ",start_date,"end: ",end_date,"summary: ",summary)
 
-        for x in range(start_date.day,(end_date.day)):
-            offset          = x - start_date.day
-            current_date    = start_date + datetime.timedelta(days=offset)
+        for x in range(0,(end_date - start_date).days):
+            current_date    = start_date + datetime.timedelta(x)
             current_workday =  WorkDay(current_date)
             parse_summary_string(summary,current_workday)
             day_list.append_day(current_workday)
@@ -71,7 +70,7 @@ def main():
     for month in months:
         first_month_day,month_duration = monthrange(current_year,int(month))
         start_day = datetime.date(current_year,int(month),1)
-        end_day   = datetime.date(current_year,int(month),month_duration)   
+        end_day   = start_day + datetime.timedelta(month_duration)   
         
              
 
