@@ -69,17 +69,19 @@ def main():
 
     support_vardies_cal = principal.calendar(client,support_vardies)
 
+    total_duration = 0
     for month in months:
         first_month_day,month_duration = monthrange(current_year,int(month))
-        start_day = datetime.date(current_year,int(month),1)
-        end_day   = start_day + datetime.timedelta(month_duration)   
-        
-             
+        total_duration += month_duration
 
+    start_day = datetime.date(current_year,int(months[0]),1)
+    end_day   = start_day + datetime.timedelta(total_duration)   
+    
     events = support_vardies_cal.date_search(start_day,end_day)
     
     day_list   = parse_events(events)
     timesheets = Timesheets(day_list)
+    # configure as you want from now on
     while True:
         user = input("Type User: ")
         timesheets.print_users_ts(user)
