@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-from config import days
-from config import weekend
-from config import users
-from config import vardies
-from config import days2Nums
+import os, sys
+parentPath = os.path.abspath("..")
+if parentPath not in sys.path:
+    sys.path.insert(0, parentPath)
+from config import days,weekend,users,vardies,days2Nums
+
 
 def slot_to_day_vardia(slot):
     day = ""
