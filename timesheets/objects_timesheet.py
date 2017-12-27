@@ -18,7 +18,7 @@ class WorkDayList():
             work_day.print_out()
     
     def sort_me(self):
-        self.list = sorted(self.list, key = lambda work_d: work_d.day.day ) 
+        self.list = sorted(self.list, key = lambda work_d: work_d.day.day*100 + work_d.day.month*10000 ) 
 
 class WorkDay():
     def __init__(self,day):
