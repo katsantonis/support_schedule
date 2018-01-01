@@ -92,6 +92,6 @@ if __name__ == "__main__":
     if parentPath not in sys.path:
         sys.path.insert(0, parentPath)
 
-     main()
+    main()
 
 
