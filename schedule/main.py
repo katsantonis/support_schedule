@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
-from misc import read_input
+#from misc import read_input
+import os, sys 
+parentPath = os.path.abspath("..")
+if parentPath not in sys.path:
+    sys.path.insert(0, parentPath)
+from config import days,weekend,users,vardies,days2Nums
 from programma import User,Programma
 import queue
 import argparse
 from caldav_client import fetch_availabilities
 import getpass
+
 
 def print_avs(availabilities):
     for av in availabilities:
@@ -87,11 +93,6 @@ def main():
     
 
 if __name__ == "__main__":
-    import os, sys 
-    parentPath = os.path.abspath("..")
-    if parentPath not in sys.path:
-        sys.path.insert(0, parentPath)
-
     main()
 
 
